@@ -14,6 +14,10 @@ Implemented using [Slim Micro Framework](https://www.slimframework.com/). Data i
 
 Better install `composer.phar` in `tinkbank/src` directory locally. Follow up the link above for directions.
 
+[Sqlite3](https://www.sqlite.org/)
+
+`Version >=3.16`
+
 ## Installation 
 
 `cd tinkbank/src`
