@@ -1,0 +1,85 @@
+curl -d '{"deposit": 1560}' -H "Content-Type: application/json" -X POST http://localhost:8080/api/v1/accounts
+
+curl -d '{"holderName":"account1"}' -H "Content-Type: application/json" -X POST http://localhost:8080/api/v1/accounts
+
+curl -d '{"holderName":"account1", "deposit": 1560}' -H "Content-Type: application/json" -X POST http://localhost:8080/api/v1/accounts
+
+curl -d '{"holderName":"account1", "deposit": 2001}' -H "Content-Type: application/json" -X POST http://localhost:8080/api/v1/accounts
+
+curl -d '{"holderName":"account2", "deposit": 2001}' -H "Content-Type: application/json" -X POST http://localhost:8080/api/v1/accounts
+
+curl -X "DELETE" http://localhost:8080/api/v1/accounts/1
+
+curl -d operation=withdraw -d amount=55 -H "Content-Type: application/x-www-form-urlencoded" -X PUT http://localhost:8080/api/v1/transactions/1
+
+curl -d operation=deposit -d amount=101 -H "Content-Type: application/x-www-form-urlencoded" -X PUT http://localhost:8080/api/v1/transactions/1
+
+curl -d operation=test -d amount=101 -H "Content-Type: application/x-www-form-urlencoded" -X PUT http://localhost:8080/api/v1/transactions/1
+
+curl -d operation=withdraw -d amount=2147 -H "Content-Type: application/x-www-form-urlencoded" -X PUT http://localhost:8080/api/v1/transactions/1
+
+curl -d senderAccountId=1 -d receiverAccountId=3 -d amount=60 -H "Content-Type: application/x-www-form-urlencoded" -X PUT http://localhost:8080/api/v1/transactions
+
+curl -d senderAccountId=2 -d receiverAccountId=3 -d amount=60 -H "Content-Type: application/x-www-form-urlencoded" -X PUT http://localhost:8080/api/v1/transactions
+
+
+
+'SELECT senderAccountId, SUM(amount), transferTs 
+                FROM transactions 
+                WHERE $senderAccountId = (:senderAccountId) 
+                    AND transferTs BETWEEN date(\'now\', \'-1 day\') AND date(\'now\')';
+
+
+
+/api/v1/accounts
+  -> POST   : open account
+
+  EXCEPTIONS:
+  -----------
+  INTERNAL_SERVER_ERROR // 
+  BAD_REQUEST // input data is invalid
+
+
+/api/v1/accounts/{accountId}
+  -> GET    : get current balance, account details etc.
+
+  EXCEPTIONS:
+  -----------
+  INTERNAL_SERVER_ERROR // 
+  NOT_FOUND // account not found
+  BAD_REQUEST // input data is invalid
+
+
+/api/v1/accounts/{accountId}
+  -> DELETE : close account
+
+  EXCEPTIONS:
+  -----------
+  INTERNAL_SERVER_ERROR // 
+  NOT_FOUND // account not found
+  BAD_REQUEST // input data is invalid
+
+
+/api/v1/accounts/{accountId}
+  -> PUT    : update account (not required)
+
+  EXCEPTIONS:
+  -----------
+  INTERNAL_SERVER_ERROR // 
+  NOT_FOUND // account not found
+  BAD_REQUEST // input data is invalid
+
+
+/api/v1/accounts/{accountId}/transactions?operation={operation}&amount={amount}&targetAccount={targetAccount}
+
+vs.
+
+/api/v1/transactions?
+
+  -> POST   : withdraw, deposit, transfer
+
+  EXCEPTIONS:
+  -----------
+  INTERNAL_SERVER_ERROR // 
+  NOT_FOUND // account not found
+  BAD_REQUEST // input data is invalid

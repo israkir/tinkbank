@@ -1,0 +1,22 @@
+{
+    "name": "tinkbank",
+    "authors": [
+        {
+            "name": "hakki"
+        }
+    ],
+    "require": {
+        "slim/slim": "^3.9",
+        "slim/pdo": "^1.10"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "5.4.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "TinkBank\\": "",
+            "Handlers\\": "handlers",
+            "Utils\\": "utils"
+         }
+    }
+}

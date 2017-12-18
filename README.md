@@ -1,12 +1,26 @@
 ## Description 
 
-a simple account and transaction system simulating the functionality of a basic bank account implemented as a restful web service.
+A simple account and transaction system simulating the functionality of a basic bank account implemented as a restful web service.
 
-data is stored in-memory database provided by sqlite. each server restart will cause data lost. 
+Implemented using [Slim Micro Framework[(https://www.slimframework.com/). Data is stored in-memory database provided by sqlite. Remember that each server restart will cause data lost. 
+
+## Requirements
+
+[PHP](http://php.net/)
+
+Version: ^5.6.30
+
+[Composer](https://getcomposer.org/download/)
+
+Better install `composer.phar` in `tinkbank/src` directory locally. Follow up the link above for directions.
 
 ## Installation 
 
-`cd src; composer install`
+`cd tinkbank/src`
+
+`php composer.phar install`
+
+`php composer.phar dump-autoload -o`
 
 ## Development Server
 
